@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright-cache/
+
+# Métricas (el latest se regenera en cada corrida)
+flakiness-metrics/results-latest.json
+
+# Misc
+*.tsbuildinfo
+.env
+.env.*
+.DS_Store
+Thumbs.db

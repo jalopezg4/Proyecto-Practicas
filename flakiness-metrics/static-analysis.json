@@ -1,0 +1,798 @@
+{
+  "summary": {
+    "filesScanned": 3,
+    "filesWithIssues": 3,
+    "totalFindings": 38,
+    "byPattern": {
+      "FP-007": 4,
+      "FP-001": 13,
+      "FP-002": 9,
+      "FP-005": 7,
+      "FP-004": 1,
+      "FP-006": 1,
+      "FP-003": 3
+    },
+    "bySeverity": {
+      "HIGH": 24,
+      "MEDIUM": 14,
+      "LOW": 0
+    }
+  },
+  "files": [
+    {
+      "file": "/home/suario/proyecto/tests/external/herokuapp-login.spec.ts",
+      "findings": [
+        {
+          "patternId": "FP-007",
+          "patternName": "Lógica sensible al tiempo",
+          "severity": "MEDIUM",
+          "line": 65,
+          "col": 19,
+          "snippet": "const start = Date.now();",
+          "matchText": "Date.now()",
+          "contextBefore": "  test('session fue reciente', async ({ page }) => {",
+          "contextAfter": "",
+          "fix": "Evitar comparar tiempos absolutos. Verificar el RESULTADO esperado, no el tiempo que tardó.",
+          "example": {
+            "bad": "expect(Date.now() - start).toBeLessThan(100);",
+            "good": "await expect(page.locator(\".result\")).toBeVisible(); // verifica el estado, no el tiempo"
+          },
+          "contextualFix": {
+            "bad": "const start = Date.now();\n    // ...\n    expect(elapsed).toBeLessThan(...)",
+            "good": "await expect(page.locator('#username')).toBeVisible(); // verifica resultado, no tiempo"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 71,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(300); // FP-001",
+          "matchText": "waitForTimeout(300)",
+          "contextBefore": "    await page.locator('button[type=\"submit\"]').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(300); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-007",
+          "patternName": "Lógica sensible al tiempo",
+          "severity": "MEDIUM",
+          "line": 73,
+          "col": 21,
+          "snippet": "const elapsed = Date.now() - start;",
+          "matchText": "Date.now()",
+          "contextBefore": "",
+          "contextAfter": "    expect(elapsed).toBeLessThan(20000); // umbral generoso para que pase — pero FP-007 sigue presente",
+          "fix": "Evitar comparar tiempos absolutos. Verificar el RESULTADO esperado, no el tiempo que tardó.",
+          "example": {
+            "bad": "expect(Date.now() - start).toBeLessThan(100);",
+            "good": "await expect(page.locator(\".result\")).toBeVisible(); // verifica el estado, no el tiempo"
+          },
+          "contextualFix": {
+            "bad": "const elapsed = Date.now() - start;\n    // ...\n    expect(elapsed).toBeLessThan(...)",
+            "good": "await expect(page.locator('form#checkboxes input:nth-child(1)')).toBeVisible(); // verifica resultado, no tiempo"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 81,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(1500); // FP-001",
+          "matchText": "waitForTimeout(1500)",
+          "contextBefore": "    await page.goto(`${URL}/checkboxes`);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(1500); // FP-001",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 83,
+          "col": 57,
+          "snippet": "const primero = page.locator('form#checkboxes input:nth-child(1)');   // FP-002",
+          "matchText": "nth-child(1)",
+          "contextBefore": "",
+          "contextAfter": "    const segundo = page.locator('form#checkboxes input:nth-of-type(2)'); // FP-002",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const primero = page.locator('form#checkboxes input:nth-child(1)');   // FP-002",
+            "good": "page.locator('form#checkboxes input').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 84,
+          "col": 57,
+          "snippet": "const segundo = page.locator('form#checkboxes input:nth-of-type(2)'); // FP-002",
+          "matchText": "nth-of-type(2)",
+          "contextBefore": "    const primero = page.locator('form#checkboxes input:nth-child(1)');   // FP-002",
+          "contextAfter": "",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const segundo = page.locator('form#checkboxes input:nth-of-type(2)'); // FP-002",
+            "good": "page.locator('form#checkboxes input').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 97,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(1500); // FP-001",
+          "matchText": "waitForTimeout(1500)",
+          "contextBefore": "    await page.goto(`${URL}/dynamic_content`);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(1500); // FP-001",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 101,
+          "col": 36,
+          "snippet": "const primerTexto = await filas.nth(0).innerText(); // FP-005",
+          "matchText": ".nth(0)",
+          "contextBefore": "    const count = await filas.count();                  // FP-005",
+          "contextAfter": "",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 110,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(1500); // FP-001",
+          "matchText": "waitForTimeout(1500)",
+          "contextBefore": "    await page.goto(`${URL}/inputs`);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(1500); // FP-001",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 123,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(1500); // FP-001",
+          "matchText": "waitForTimeout(1500)",
+          "contextBefore": "    await page.goto(`${URL}/dropdown`);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(1500); // FP-001",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 125,
+          "col": 58,
+          "snippet": "const opcion1 = await page.locator('#dropdown option:nth-child(2)').innerText(); // FP-002",
+          "matchText": "nth-child(2)",
+          "contextBefore": "",
+          "contextAfter": "    const opcion2 = await page.locator('#dropdown option:nth-child(3)').innerText(); // FP-002",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const opcion1 = await page.locator('#dropdown option:nth-child(2)').innerText(); // FP-002",
+            "good": "page.locator('#dropdown option').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 125,
+          "col": 21,
+          "snippet": "const opcion1 = await page.locator('#dropdown option:nth-child(2)').innerText(); // FP-002",
+          "matchText": "await page.locator('#dropdown option:nth-child(2)').innerText();",
+          "contextBefore": "",
+          "contextAfter": "    const opcion2 = await page.locator('#dropdown option:nth-child(3)').innerText(); // FP-002",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 126,
+          "col": 58,
+          "snippet": "const opcion2 = await page.locator('#dropdown option:nth-child(3)').innerText(); // FP-002",
+          "matchText": "nth-child(3)",
+          "contextBefore": "    const opcion1 = await page.locator('#dropdown option:nth-child(2)').innerText(); // FP-002",
+          "contextAfter": "",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const opcion2 = await page.locator('#dropdown option:nth-child(3)').innerText(); // FP-002",
+            "good": "page.locator('#dropdown option').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 126,
+          "col": 21,
+          "snippet": "const opcion2 = await page.locator('#dropdown option:nth-child(3)').innerText(); // FP-002",
+          "matchText": "await page.locator('#dropdown option:nth-child(3)').innerText();",
+          "contextBefore": "    const opcion1 = await page.locator('#dropdown option:nth-child(2)').innerText(); // FP-002",
+          "contextAfter": "",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          }
+        }
+      ]
+    },
+    {
+      "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+      "findings": [
+        {
+          "patternId": "FP-004",
+          "patternName": "Estado compartido entre tests",
+          "severity": "HIGH",
+          "line": 23,
+          "col": 1,
+          "snippet": "let addedCount = 0;",
+          "matchText": "let addedCount =",
+          "contextBefore": "const cart = { items: [] as string[] };",
+          "contextAfter": "",
+          "fix": "Mover el estado dentro del scope del test o del beforeEach:\n  test(\"mi test\", async ({ page }) => {\n    const localState = [];\n    // ...\n  });",
+          "example": {
+            "bad": "let count = 0;\ntest(\"test A\", () => { count++; })",
+            "good": "test(\"test A\", () => {\n  let count = 0;\n  count++;\n})"
+          },
+          "contextualFix": {
+            "bad": "let addedCount = 0;",
+            "good": "// Mover dentro del test o beforeEach:\ntest('...', async ({ page }) => {\n  let addedCount = ...; // scope local\n});"
+          }
+        },
+        {
+          "patternId": "FP-006",
+          "patternName": "Estado global de módulo mutable",
+          "severity": "HIGH",
+          "line": 23,
+          "col": 1,
+          "snippet": "let addedCount = 0;",
+          "matchText": "let addedCount =",
+          "contextBefore": "const cart = { items: [] as string[] };",
+          "contextAfter": "",
+          "fix": "Encapsular en beforeEach con scope local al describe o al test.",
+          "example": {
+            "bad": "let itemCount = 0;",
+            "good": "// Dentro de beforeEach o del test:\nlet itemCount = 0;"
+          },
+          "contextualFix": {
+            "bad": "let addedCount = 0;",
+            "good": "// Mover dentro del test o beforeEach:\ntest('...', async ({ page }) => {\n  let addedCount = ...; // scope local\n});"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 29,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(1500); // FP-001: espera fija en lugar de esperar el campo",
+          "matchText": "waitForTimeout(1500)",
+          "contextBefore": "    await page.goto(BASE);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(1500); // FP-001: espera fija en lugar de esperar el campo",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 36,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(500); // FP-001: puede ser insuficiente en red lenta",
+          "matchText": "waitForTimeout(500)",
+          "contextBefore": "    // FP-003: clic en login y verificación inmediata sin waitForURL",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(500); // FP-001: puede ser insuficiente en red lenta",
+            "good": "await expect(page.locator('<selector>')).toBeVisible();"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 39,
+          "col": 19,
+          "snippet": "const title = await page.locator('.title').innerText();",
+          "matchText": "await page.locator('.title').innerText();",
+          "contextBefore": "    // FP-005: innerText puede devolver \"\" si el elemento no cargó aún",
+          "contextAfter": "    expect(title).toBe('Products');",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const title = await page.locator('.title').innerText();\n    expect(title).toBe('Products');",
+            "good": "await expect(page.locator('.title')).toHaveText('Products');"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 48,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(800); // FP-001",
+          "matchText": "waitForTimeout(800)",
+          "contextBefore": "    await page.locator('#login-button').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(800); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 51,
+          "col": 58,
+          "snippet": "const primerProducto = page.locator('.inventory_item:nth-child(1)');",
+          "matchText": "nth-child(1)",
+          "contextBefore": "    // FP-002: nth-child rompe si Sauce Labs reordena los productos",
+          "contextAfter": "    // FP-005: innerText sin esperar visibilidad",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const primerProducto = page.locator('.inventory_item:nth-child(1)');",
+            "good": "page.locator('.inventory_item').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 61,
+          "col": 19,
+          "snippet": "const badge = await page.locator('.shopping_cart_badge').innerText();",
+          "matchText": "await page.locator('.shopping_cart_badge').innerText();",
+          "contextBefore": "    // FP-005: leer badge sin esperar que se actualice",
+          "contextAfter": "    expect(parseInt(badge)).toBe(1);",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const badge = await page.locator('.shopping_cart_badge').innerText();\n    expect(parseInt(badge)).toBe(1);",
+            "good": "await expect(page.locator('.shopping_cart_badge')).toHaveText('1');"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 70,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(600); // FP-001",
+          "matchText": "waitForTimeout(600)",
+          "contextBefore": "    await page.locator('#login-button').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(600); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 80,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(300); // FP-001: tiempo insuficiente si hay redirect",
+          "matchText": "waitForTimeout(300)",
+          "contextBefore": "    await page.goto(`${BASE}/inventory.html`);",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(300); // FP-001: tiempo insuficiente si hay redirect",
+            "good": "await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 83,
+          "col": 20,
+          "snippet": "const precio = await page.locator('.inventory_item_price').first().innerText();",
+          "matchText": "await page.locator('.inventory_item_price').first().innerText();",
+          "contextBefore": "    // FP-005: innerText en el primer precio sin verificar que sea visible",
+          "contextAfter": "    expect(precio).toMatch(/^\\$\\d+\\.\\d{2}$/);",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const precio = await page.locator('.inventory_item_price').first().innerText();",
+            "good": "await expect(page.locator('.inventory_item_price').first()).toHaveText('<valor esperado>');"
+          }
+        },
+        {
+          "patternId": "FP-007",
+          "patternName": "Lógica sensible al tiempo",
+          "severity": "MEDIUM",
+          "line": 88,
+          "col": 19,
+          "snippet": "const start = Date.now();",
+          "matchText": "Date.now()",
+          "contextBefore": "  test('FP-007 | validar tiempo de carga del inventario con umbral fijo', async ({ page }) => {",
+          "contextAfter": "",
+          "fix": "Evitar comparar tiempos absolutos. Verificar el RESULTADO esperado, no el tiempo que tardó.",
+          "example": {
+            "bad": "expect(Date.now() - start).toBeLessThan(100);",
+            "good": "await expect(page.locator(\".result\")).toBeVisible(); // verifica el estado, no el tiempo"
+          },
+          "contextualFix": {
+            "bad": "const start = Date.now();\n    // ...\n    expect(elapsed).toBeLessThan(...)",
+            "good": "await expect(page.locator('#user-name')).toBeVisible(); // verifica resultado, no tiempo"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 94,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(200); // FP-001",
+          "matchText": "waitForTimeout(200)",
+          "contextBefore": "    await page.locator('#login-button').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(200); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-007",
+          "patternName": "Lógica sensible al tiempo",
+          "severity": "MEDIUM",
+          "line": 96,
+          "col": 21,
+          "snippet": "const elapsed = Date.now() - start;",
+          "matchText": "Date.now()",
+          "contextBefore": "",
+          "contextAfter": "    // FP-007: 1500ms es demasiado ajustado en CI o redes con latencia",
+          "fix": "Evitar comparar tiempos absolutos. Verificar el RESULTADO esperado, no el tiempo que tardó.",
+          "example": {
+            "bad": "expect(Date.now() - start).toBeLessThan(100);",
+            "good": "await expect(page.locator(\".result\")).toBeVisible(); // verifica el estado, no el tiempo"
+          },
+          "contextualFix": {
+            "bad": "const elapsed = Date.now() - start;\n    // ...\n    expect(elapsed).toBeLessThan(...)",
+            "good": "await expect(page.locator('#user-name')).toBeVisible(); // verifica resultado, no tiempo"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 106,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(700); // FP-001",
+          "matchText": "waitForTimeout(700)",
+          "contextBefore": "    await page.locator('#login-button').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(700); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 109,
+          "col": 41,
+          "snippet": "await page.locator('.inventory_item:nth-child(1) button').click();",
+          "matchText": "nth-child(1)",
+          "contextBefore": "    // FP-002: nth-child — falla si el catálogo cambia de orden",
+          "contextAfter": "    addedCount++; // FP-006",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "await page.locator('.inventory_item:nth-child(1) button').click();",
+            "good": "page.locator('.inventory_item').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 111,
+          "col": 41,
+          "snippet": "await page.locator('.inventory_item:nth-child(2) button').click();",
+          "matchText": "nth-child(2)",
+          "contextBefore": "    addedCount++; // FP-006",
+          "contextAfter": "    addedCount++; // FP-006",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "await page.locator('.inventory_item:nth-child(2) button').click();",
+            "good": "page.locator('.inventory_item').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-001",
+          "patternName": "Hard-coded timeout",
+          "severity": "HIGH",
+          "line": 115,
+          "col": 16,
+          "snippet": "await page.waitForTimeout(400); // FP-001",
+          "matchText": "waitForTimeout(400)",
+          "contextBefore": "    await page.locator('.shopping_cart_link').click();",
+          "contextAfter": "",
+          "fix": "Reemplazar por espera orientada a condición:\n  await expect(locator).toBeVisible()\n  await page.waitForURL(...)\n  await page.waitForLoadState(\"networkidle\")",
+          "example": {
+            "bad": "await page.waitForTimeout(1000);",
+            "good": "await expect(page.getByRole('button')).toBeVisible();"
+          },
+          "contextualFix": {
+            "bad": "await page.waitForTimeout(400); // FP-001",
+            "good": "await page.waitForURL('**/<ruta-destino>');"
+          }
+        },
+        {
+          "patternId": "FP-002",
+          "patternName": "Locator frágil (posicional)",
+          "severity": "HIGH",
+          "line": 118,
+          "col": 57,
+          "snippet": "const primerNombre = await page.locator('.cart_item:nth-child(1) .inventory_item_name').innerText(); // FP-005",
+          "matchText": "nth-child(1)",
+          "contextBefore": "    // FP-002: verifica primer ítem del carrito por índice posicional",
+          "contextAfter": "    expect(primerNombre.length).toBeGreaterThan(0);",
+          "fix": "Usar locators semánticos:\n  page.getByRole(\"listitem\").filter({ hasText: \"texto\" })\n  page.getByLabel(\"label\")\n  page.getByTestId(\"data-testid\")",
+          "example": {
+            "bad": "page.locator(\".list li:nth-child(2)\")",
+            "good": "page.getByRole(\"listitem\").filter({ hasText: \"esperado\" })"
+          },
+          "contextualFix": {
+            "bad": "const primerNombre = await page.locator('.cart_item:nth-child(1) .inventory_item_name').innerText(); // FP-005",
+            "good": "page.locator('.cart_item .inventory_item_name').filter({ hasText: '<texto visible del elemento>' })"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 118,
+          "col": 26,
+          "snippet": "const primerNombre = await page.locator('.cart_item:nth-child(1) .inventory_item_name').innerText(); // FP-005",
+          "matchText": "await page.locator('.cart_item:nth-child(1) .inventory_item_name').innerText();",
+          "contextBefore": "    // FP-002: verifica primer ítem del carrito por índice posicional",
+          "contextAfter": "    expect(primerNombre.length).toBeGreaterThan(0);",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          }
+        }
+      ]
+    },
+    {
+      "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+      "findings": [
+        {
+          "patternId": "FP-003",
+          "patternName": "Sin espera de red / navegación",
+          "severity": "MEDIUM",
+          "line": 50,
+          "col": 43,
+          "snippet": "await primerProducto.locator('button').click();",
+          "matchText": ".click();\n    const",
+          "contextBefore": "",
+          "contextAfter": "    const addedCount = 1; // FP-006 corregido: variable local, no de módulo",
+          "fix": "Agregar espera explícita después del click:\n  await page.waitForURL(\"**/ruta\")\n  await page.waitForLoadState(\"networkidle\")\n  await page.waitForResponse(\"**/api/endpoint\")",
+          "example": {
+            "bad": "await page.click(\"a\"); const text = await page.title();",
+            "good": "await page.click(\"a\"); await page.waitForURL(\"**/destino\"); const text = await page.title();"
+          },
+          "contextualFix": {
+            "bad": "await page.click(\"a\"); const text = await page.title();",
+            "good": "await page.click(\"a\"); await page.waitForURL(\"**/destino\"); const text = await page.title();"
+          }
+        },
+        {
+          "patternId": "FP-005",
+          "patternName": "Aserción sin auto-wait (innerText/count inmediatos)",
+          "severity": "MEDIUM",
+          "line": 85,
+          "col": 20,
+          "snippet": "const precio = await page.locator('.inventory_item_price').first().innerText();",
+          "matchText": "await page.locator('.inventory_item_price').first().innerText();",
+          "contextBefore": "    await expect(page.locator('.inventory_item_price').first()).toBeVisible();",
+          "contextAfter": "    expect(precio).toMatch(/^\\$\\d+\\.\\d{2}$/);",
+          "fix": "Usar expect() que tiene retry automático:\n  await expect(locator).toHaveText(\"texto\")\n  await expect(locator).toHaveCount(n)\n  await expect(locator).toHaveAttribute(\"attr\", \"val\")",
+          "example": {
+            "bad": "const text = await page.locator(\".msg\").innerText();\nexpect(text).toBe(\"Listo\");",
+            "good": "await expect(page.locator(\".msg\")).toHaveText(\"Listo\");"
+          },
+          "contextualFix": {
+            "bad": "const precio = await page.locator('.inventory_item_price').first().innerText();",
+            "good": "await expect(page.locator('.inventory_item_price').first()).toHaveText('<valor esperado>');"
+          }
+        },
+        {
+          "patternId": "FP-003",
+          "patternName": "Sin espera de red / navegación",
+          "severity": "MEDIUM",
+          "line": 109,
+          "col": 103,
+          "snippet": "await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Backpack' }).locator('button').click();",
+          "matchText": ".click();\n    await ",
+          "contextBefore": "    // FP-002 corregido: nombres explícitos en lugar de nth-child",
+          "contextAfter": "    await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Bike Light' }).locator('button').click();",
+          "fix": "Agregar espera explícita después del click:\n  await page.waitForURL(\"**/ruta\")\n  await page.waitForLoadState(\"networkidle\")\n  await page.waitForResponse(\"**/api/endpoint\")",
+          "example": {
+            "bad": "await page.click(\"a\"); const text = await page.title();",
+            "good": "await page.click(\"a\"); await page.waitForURL(\"**/destino\"); const text = await page.title();"
+          },
+          "contextualFix": {
+            "bad": "await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Backpack' }).locator('button').click();",
+            "good": "await page.waitForURL('**/<ruta-destino>');\n// o\nawait expect(page.locator('<elemento-cargado>')).toBeVisible();"
+          }
+        },
+        {
+          "patternId": "FP-003",
+          "patternName": "Sin espera de red / navegación",
+          "severity": "MEDIUM",
+          "line": 110,
+          "col": 105,
+          "snippet": "await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Bike Light' }).locator('button').click();",
+          "matchText": ".click();\n    const",
+          "contextBefore": "    await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Backpack' }).locator('button').click();",
+          "contextAfter": "    const addedCount = 2; // FP-006 corregido: variable local",
+          "fix": "Agregar espera explícita después del click:\n  await page.waitForURL(\"**/ruta\")\n  await page.waitForLoadState(\"networkidle\")\n  await page.waitForResponse(\"**/api/endpoint\")",
+          "example": {
+            "bad": "await page.click(\"a\"); const text = await page.title();",
+            "good": "await page.click(\"a\"); await page.waitForURL(\"**/destino\"); const text = await page.title();"
+          },
+          "contextualFix": {
+            "bad": "await page.locator('.inventory_item').filter({ hasText: 'Sauce Labs Bike Light' }).locator('button').click();",
+            "good": "await page.waitForURL('**/<ruta-destino>');\n// o\nawait expect(page.locator('<elemento-cargado>')).toBeVisible();"
+          }
+        }
+      ]
+    }
+  ]
+}

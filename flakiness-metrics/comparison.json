@@ -1,0 +1,229 @@
+{
+  "before": {
+    "runAt": "2026-04-25T22:56:25.826Z",
+    "durationMs": 72638.859,
+    "total": 6,
+    "passed": 2,
+    "flaky": 2,
+    "failed": 2,
+    "skipped": 0,
+    "totalRetries": 4,
+    "retryRate": 66.7,
+    "flakinessRate": 33.3,
+    "tests": [
+      {
+        "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 27
+      },
+      {
+        "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 43
+      },
+      {
+        "title": "FP-004 | carrito asume estado dejado por el test anterior",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 65
+      },
+      {
+        "title": "FP-005 | leer precio antes de que el inventario cargue",
+        "status": "failed",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.innerText: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('.inventory_item_price'"
+        ],
+        "line": 77
+      },
+      {
+        "title": "FP-007 | validar tiempo de carga del inventario con umbral fijo",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 87
+      },
+      {
+        "title": "FP-002 + FP-006 | verificar carrito con dos productos por índice",
+        "status": "failed",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.innerText: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('.cart_item:nth-child(1"
+        ],
+        "line": 101
+      }
+    ],
+    "failureRate": 33.3,
+    "topFlaky": [
+      {
+        "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 27
+      },
+      {
+        "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 43
+      },
+      {
+        "title": "FP-005 | leer precio antes de que el inventario cargue",
+        "status": "failed",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.innerText: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('.inventory_item_price'"
+        ],
+        "line": 77
+      },
+      {
+        "title": "FP-002 + FP-006 | verificar carrito con dos productos por índice",
+        "status": "failed",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.innerText: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('.cart_item:nth-child(1"
+        ],
+        "line": 101
+      }
+    ]
+  },
+  "after": {
+    "runAt": "2026-04-25T23:14:39.600Z",
+    "durationMs": 27781.278,
+    "total": 6,
+    "passed": 4,
+    "flaky": 2,
+    "failed": 0,
+    "skipped": 0,
+    "totalRetries": 2,
+    "retryRate": 33.3,
+    "flakinessRate": 33.3,
+    "tests": [
+      {
+        "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 22
+      },
+      {
+        "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 36
+      },
+      {
+        "title": "FP-004 | carrito asume estado dejado por el test anterior",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 59
+      },
+      {
+        "title": "FP-005 | leer precio antes de que el inventario cargue",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 76
+      },
+      {
+        "title": "FP-007 | validar tiempo de carga del inventario con umbral fijo",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 89
+      },
+      {
+        "title": "FP-002 + FP-006 | verificar carrito con dos productos por índice",
+        "status": "passed",
+        "retries": 0,
+        "errors": [],
+        "line": 101
+      }
+    ],
+    "failureRate": 0,
+    "topFlaky": [
+      {
+        "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 22
+      },
+      {
+        "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+        "status": "flaky",
+        "retries": 1,
+        "errors": [
+          "TimeoutError: locator.fill: Timeout 15000ms exceeded. Call log: \u001b[2m  - waiting for locator('#user-name')\u001b[22m   \u001b[0m \u001b["
+        ],
+        "line": 36
+      }
+    ]
+  },
+  "comparison": {
+    "flakinessRate": {
+      "before": 33.3,
+      "after": 33.3,
+      "diff": 0,
+      "pct": 0
+    },
+    "retryRate": {
+      "before": 66.7,
+      "after": 33.3,
+      "diff": -33.400000000000006,
+      "pct": -50.1
+    },
+    "failureRate": {
+      "before": 33.3,
+      "after": 0,
+      "diff": -33.3,
+      "pct": -100
+    },
+    "totalRetries": {
+      "before": 4,
+      "after": 2,
+      "diff": -2,
+      "pct": -50
+    },
+    "flaky": {
+      "before": 2,
+      "after": 2,
+      "diff": 0,
+      "pct": 0
+    },
+    "failed": {
+      "before": 2,
+      "after": 0,
+      "diff": -2,
+      "pct": -100
+    },
+    "resolved": [
+      "FP-005 | leer precio antes de que el inventario cargue",
+      "FP-002 + FP-006 | verificar carrito con dos productos por índice"
+    ],
+    "regressions": []
+  }
+}

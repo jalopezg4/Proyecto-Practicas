@@ -1,0 +1,629 @@
+{
+  "config": {
+    "configFile": "/home/suario/proyecto/playwright.config.ts",
+    "rootDir": "/home/suario/proyecto/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/suario/proyecto/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium-ui",
+        "name": "chromium-ui",
+        "testDir": "/home/suario/proyecto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/suario/proyecto/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium-headless",
+        "name": "chromium-headless",
+        "testDir": "/home/suario/proyecto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "flakiness-metrics/results-latest.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "specs/flaky/03-ecommerce-flaky.spec.ts",
+      "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Sauce Demo — Tests Inestables (Anti-patrones)",
+          "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+          "line": 25,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18418,
+                      "error": {
+                        "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:31:38",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 38,
+                          "line": 31
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 29 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1500\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001: espera fija en lugar de esperar el campo\u001b[39m\n \u001b[90m 30 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 38,
+                            "line": 31
+                          },
+                          "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 29 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1500\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001: espera fija en lugar de esperar el campo\u001b[39m\n \u001b[90m 30 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:31:38\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:27.377Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-522bc-sperar-redirect-a-inventory-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-522bc-sperar-redirect-a-inventory-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-522bc-sperar-redirect-a-inventory-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 38,
+                        "line": 31
+                      }
+                    },
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4205,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T22:56:49.006Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-522bc-sperar-redirect-a-inventory-chromium-headless-retry1/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-26a3c1d7f81435479b16",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 27,
+              "column": 7
+            },
+            {
+              "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 16998,
+                      "error": {
+                        "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:45:38",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 38,
+                          "line": 45
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 43 |\u001b[39m   test(\u001b[32m'FP-002 | agregar producto al carrito por posición en el DOM'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 44 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[33mBASE\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 45 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m800\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 38,
+                            "line": 45
+                          },
+                          "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 43 |\u001b[39m   test(\u001b[32m'FP-002 | agregar producto al carrito por posición en el DOM'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 44 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[33mBASE\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 45 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 46 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m800\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:45:38\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:27.393Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-7fb86-rito-por-posición-en-el-DOM-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-7fb86-rito-por-posición-en-el-DOM-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-7fb86-rito-por-posición-en-el-DOM-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 38,
+                        "line": 45
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3914,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T22:56:47.633Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-7fb86-rito-por-posición-en-el-DOM-chromium-headless-retry1/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-ba40e96866515efe8b21",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "FP-004 | carrito asume estado dejado por el test anterior",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2206,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:52.661Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-23e7c998409a355242f8",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 65,
+              "column": 7
+            },
+            {
+              "title": "FP-005 | leer precio antes de que el inventario cargue",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18835,
+                      "error": {
+                        "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n",
+                        "stack": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:83:72",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 72,
+                          "line": 83
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 81 |\u001b[39m\n \u001b[90m 82 |\u001b[39m     \u001b[90m// FP-005: innerText en el primer precio sin verificar que sea visible\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     \u001b[36mconst\u001b[39m precio \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.inventory_item_price'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     expect(precio)\u001b[33m.\u001b[39mtoMatch(\u001b[35m/^\\$\\d+\\.\\d{2}$/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 72,
+                            "line": 83
+                          },
+                          "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n\n\n\u001b[0m \u001b[90m 81 |\u001b[39m\n \u001b[90m 82 |\u001b[39m     \u001b[90m// FP-005: innerText en el primer precio sin verificar que sea visible\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     \u001b[36mconst\u001b[39m precio \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.inventory_item_price'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     expect(precio)\u001b[33m.\u001b[39mtoMatch(\u001b[35m/^\\$\\d+\\.\\d{2}$/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:83:72\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:54.256Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 72,
+                        "line": 83
+                      }
+                    },
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18985,
+                      "error": {
+                        "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n",
+                        "stack": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:83:72",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 72,
+                          "line": 83
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 81 |\u001b[39m\n \u001b[90m 82 |\u001b[39m     \u001b[90m// FP-005: innerText en el primer precio sin verificar que sea visible\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     \u001b[36mconst\u001b[39m precio \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.inventory_item_price'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     expect(precio)\u001b[33m.\u001b[39mtoMatch(\u001b[35m/^\\$\\d+\\.\\d{2}$/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 72,
+                            "line": 83
+                          },
+                          "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.inventory_item_price').first()\u001b[22m\n\n\n\u001b[0m \u001b[90m 81 |\u001b[39m\n \u001b[90m 82 |\u001b[39m     \u001b[90m// FP-005: innerText en el primer precio sin verificar que sea visible\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 83 |\u001b[39m     \u001b[36mconst\u001b[39m precio \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.inventory_item_price'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 84 |\u001b[39m     expect(precio)\u001b[33m.\u001b[39mtoMatch(\u001b[35m/^\\$\\d+\\.\\d{2}$/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 86 |\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:83:72\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T22:57:14.610Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless-retry1/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-09f24-de-que-el-inventario-cargue-chromium-headless-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 72,
+                        "line": 83
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-51e4c665f05ea9122dc7",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 77,
+              "column": 7
+            },
+            {
+              "title": "FP-007 | validar tiempo de carga del inventario con umbral fijo",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1722,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:54.908Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-83e785a6965b9571142c",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 87,
+              "column": 7
+            },
+            {
+              "title": "FP-002 + FP-006 | verificar carrito con dos productos por índice",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 19374,
+                      "error": {
+                        "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:118:93",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 93,
+                          "line": 118
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 116 |\u001b[39m\n \u001b[90m 117 |\u001b[39m     \u001b[90m// FP-002: verifica primer ítem del carrito por índice posicional\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m     \u001b[36mconst\u001b[39m primerNombre \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.cart_item:nth-child(1) .inventory_item_name'\u001b[39m)\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m \u001b[90m// FP-005\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m     expect(primerNombre\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 120 |\u001b[39m\n \u001b[90m 121 |\u001b[39m     \u001b[90m// FP-006: addedCount no es determinista con múltiples workers\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 93,
+                            "line": 118
+                          },
+                          "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 116 |\u001b[39m\n \u001b[90m 117 |\u001b[39m     \u001b[90m// FP-002: verifica primer ítem del carrito por índice posicional\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m     \u001b[36mconst\u001b[39m primerNombre \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.cart_item:nth-child(1) .inventory_item_name'\u001b[39m)\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m \u001b[90m// FP-005\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m     expect(primerNombre\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 120 |\u001b[39m\n \u001b[90m 121 |\u001b[39m     \u001b[90m// FP-006: addedCount no es determinista con múltiples workers\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:118:93\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T22:56:56.671Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 93,
+                        "line": 118
+                      }
+                    },
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 20944,
+                      "error": {
+                        "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:118:93",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                          "column": 93,
+                          "line": 118
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 116 |\u001b[39m\n \u001b[90m 117 |\u001b[39m     \u001b[90m// FP-002: verifica primer ítem del carrito por índice posicional\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m     \u001b[36mconst\u001b[39m primerNombre \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.cart_item:nth-child(1) .inventory_item_name'\u001b[39m)\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m \u001b[90m// FP-005\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m     expect(primerNombre\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 120 |\u001b[39m\n \u001b[90m 121 |\u001b[39m     \u001b[90m// FP-006: addedCount no es determinista con múltiples workers\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                            "column": 93,
+                            "line": 118
+                          },
+                          "message": "TimeoutError: locator.innerText: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.cart_item:nth-child(1) .inventory_item_name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 116 |\u001b[39m\n \u001b[90m 117 |\u001b[39m     \u001b[90m// FP-002: verifica primer ítem del carrito por índice posicional\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 118 |\u001b[39m     \u001b[36mconst\u001b[39m primerNombre \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.cart_item:nth-child(1) .inventory_item_name'\u001b[39m)\u001b[33m.\u001b[39minnerText()\u001b[33m;\u001b[39m \u001b[90m// FP-005\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 119 |\u001b[39m     expect(primerNombre\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 120 |\u001b[39m\n \u001b[90m 121 |\u001b[39m     \u001b[90m// FP-006: addedCount no es determinista con múltiples workers\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts:118:93\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T22:57:17.454Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless-retry1/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-flaky-03-ecommerce-f-64657-on-dos-productos-por-índice-chromium-headless-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/flaky/03-ecommerce-flaky.spec.ts",
+                        "column": 93,
+                        "line": 118
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "bc3c29cff1902da87e87-fd8a563e951d9941c818",
+              "file": "specs/flaky/03-ecommerce-flaky.spec.ts",
+              "line": 101,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-04-25T22:56:25.826Z",
+    "duration": 72638.859,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 2
+  }
+}

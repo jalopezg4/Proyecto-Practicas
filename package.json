@@ -1,0 +1,32 @@
+{
+  "name": "proyecto",
+  "version": "1.0.0",
+  "description": "QA Flakiness Analysis System - Playwright",
+  "scripts": {
+    "test": "playwright test",
+    "test:flaky": "playwright test tests/specs/flaky/  --project=chromium-headless",
+    "test:stable": "playwright test tests/specs/stable/ --project=chromium-headless",
+    "test:all": "playwright test tests/              --project=chromium-headless",
+    "report": "playwright show-report",
+    "analyze": "bash utils/flakiness/run.sh analyze",
+    "analyze:file": "bash utils/flakiness/run.sh analyze:file",
+    "analyze:results": "bash utils/flakiness/run.sh analyze:results",
+    "detect": "bash utils/flakiness/run.sh detect",
+    "fix:suggest": "bash utils/flakiness/run.sh fix-suggest",
+    "metrics": "bash utils/flakiness/run.sh metrics",
+    "compare": "bash utils/flakiness/run.sh compare",
+    "save-before": "cp flakiness-metrics/results-latest.json flakiness-metrics/results-before.json && echo 'Baseline guardado como BEFORE'",
+    "save-after": "cp flakiness-metrics/results-latest.json flakiness-metrics/results-after.json  && echo 'Resultados guardados como AFTER'",
+    "workflow:scan": "npm run test:all; npm run save-before && npm run analyze:results && echo '--- Revisa las sugerencias y aplica los fixes ---'",
+    "workflow:verify": "npm run test:all; npm run save-after  && npm run compare        && echo '--- Verificación completada ---'",
+    "workflow:before": "npm run test:flaky; npm run save-before && echo '--- Fase BEFORE completada ---'",
+    "workflow:after": "npm run test:stable && npm run save-after && npm run compare && echo '--- Fase AFTER completada ---'",
+    "workflow:full": "npm run workflow:before && npm run workflow:after"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.29.2",
+    "@babel/traverse": "^7.29.0",
+    "@playwright/test": "^1.59.1"
+  },
+  "license": "ISC"
+}

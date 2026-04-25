@@ -1,0 +1,433 @@
+{
+  "config": {
+    "configFile": "/home/suario/proyecto/playwright.config.ts",
+    "rootDir": "/home/suario/proyecto/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/suario/proyecto/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium-ui",
+        "name": "chromium-ui",
+        "testDir": "/home/suario/proyecto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/suario/proyecto/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium-headless",
+        "name": "chromium-headless",
+        "testDir": "/home/suario/proyecto/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "flakiness-metrics/results-latest.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "specs/stable/03-ecommerce-stable.spec.ts",
+      "file": "specs/stable/03-ecommerce-stable.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Sauce Demo — Tests Inestables (Anti-patrones)",
+          "file": "specs/stable/03-ecommerce-stable.spec.ts",
+          "line": 20,
+          "column": 6,
+          "specs": [
+            {
+              "title": "FP-001 + FP-003 | login sin esperar redirect a inventory",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 17346,
+                      "error": {
+                        "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts:26:38",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                          "column": 38,
+                          "line": 26
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001 corregido: espera orientada a condición\u001b[39m\n \u001b[90m 25 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                            "column": 38,
+                            "line": 26
+                          },
+                          "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001 corregido: espera orientada a condición\u001b[39m\n \u001b[90m 25 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts:26:38\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:14:41.192Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--bda35-sperar-redirect-a-inventory-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--bda35-sperar-redirect-a-inventory-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--bda35-sperar-redirect-a-inventory-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                        "column": 38,
+                        "line": 26
+                      }
+                    },
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2810,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T23:15:00.733Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--bda35-sperar-redirect-a-inventory-chromium-headless-retry1/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "2a95f4825474520d77da-7a998715b5a0642aaf4d",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "FP-002 | agregar producto al carrito por posición en el DOM",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 16876,
+                      "error": {
+                        "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n    at /home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts:38:38",
+                        "location": {
+                          "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                          "column": 38,
+                          "line": 38
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 36 |\u001b[39m   test(\u001b[32m'FP-002 | agregar producto al carrito por posición en el DOM'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[33mBASE\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 38 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 39 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'**/inventory.html'\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001 + FP-003 corregido\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                            "column": 38,
+                            "line": 38
+                          },
+                          "message": "TimeoutError: locator.fill: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#user-name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 36 |\u001b[39m   test(\u001b[32m'FP-002 | agregar producto al carrito por posición en el DOM'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[33mBASE\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 38 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#user-name'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'standard_user'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 39 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#password'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'secret_sauce'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#login-button'\u001b[39m)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'**/inventory.html'\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// FP-001 + FP-003 corregido\u001b[39m\u001b[0m\n\u001b[2m    at /home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts:38:38\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:14:41.184Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--a9323-rito-por-posición-en-el-DOM-chromium-headless/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--a9323-rito-por-posición-en-el-DOM-chromium-headless/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--a9323-rito-por-posición-en-el-DOM-chromium-headless/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/suario/proyecto/tests/specs/stable/03-ecommerce-stable.spec.ts",
+                        "column": 38,
+                        "line": 38
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2687,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-04-25T23:15:00.239Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/suario/proyecto/test-results/specs-stable-03-ecommerce--a9323-rito-por-posición-en-el-DOM-chromium-headless-retry1/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "2a95f4825474520d77da-1feae985b019912c0fda",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 36,
+              "column": 7
+            },
+            {
+              "title": "FP-004 | carrito asume estado dejado por el test anterior",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1633,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:15:03.361Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a95f4825474520d77da-8c4242caaea896d02dda",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "FP-005 | leer precio antes de que el inventario cargue",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1563,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:15:03.963Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a95f4825474520d77da-6571425e157894267d59",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 76,
+              "column": 7
+            },
+            {
+              "title": "FP-007 | validar tiempo de carga del inventario con umbral fijo",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1542,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:15:05.045Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a95f4825474520d77da-b57b7a6d6517bcb734ad",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 89,
+              "column": 7
+            },
+            {
+              "title": "FP-002 + FP-006 | verificar carrito con dos productos por índice",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-headless",
+                  "projectName": "chromium-headless",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1630,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-25T23:15:05.576Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a95f4825474520d77da-335d0cf2d5b151756e9c",
+              "file": "specs/stable/03-ecommerce-stable.spec.ts",
+              "line": 101,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-04-25T23:14:39.600Z",
+    "duration": 27781.278,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 2
+  }
+}
